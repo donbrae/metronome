@@ -1,5 +1,5 @@
 class Metronome {
-    constructor(tempo = 120) {
+    constructor(tempo = 120, numberOfClicksToPlay = 4) {
         this.audioContext = null;
         this.notesInQueue = [];         // notes that have been put into the web audio and may or may not have been played yet {note, time}
         this.currentQuarterNote = 0;
@@ -9,17 +9,15 @@ class Metronome {
         this.nextNoteTime = 0.0;     // when the next note is due
         this.isRunning = false;
         this.intervalID = null;
+        this.numberOfClicksToPlay = numberOfClicksToPlay;
     }
 
     nextNote() {
         // Advance current note and time by a quarter note (crotchet if you're posh)
-        var secondsPerBeat = 60.0 / this.tempo; // Notice this picks up the CURRENT tempo value to calculate beat length.
+        let secondsPerBeat = 60.0 / this.tempo; // Notice this picks up the CURRENT tempo value to calculate beat length.
         this.nextNoteTime += secondsPerBeat; // Add beat length to last beat time
 
         this.currentQuarterNote++;    // Advance the beat number, wrap to zero
-        if (this.currentQuarterNote == 4) {
-            this.currentQuarterNote = 0;
-        }
     }
 
     scheduleNote(beatNumber, time) {
@@ -44,9 +42,11 @@ class Metronome {
 
     scheduler() {
         // while there are notes that will need to play before the next interval, schedule them and advance the pointer.
-        while (this.nextNoteTime < this.audioContext.currentTime + this.scheduleAheadTime) {
+        if (this.nextNoteTime < this.audioContext.currentTime + this.scheduleAheadTime && this.currentQuarterNote < this.numberOfClicksToPlay) {
             this.scheduleNote(this.currentQuarterNote, this.nextNoteTime);
             this.nextNote();
+        } else if (this.currentQuarterNote === this.numberOfClicksToPlay) {
+            this.stop();
         }
     }
 
@@ -59,7 +59,6 @@ class Metronome {
 
         this.isRunning = true;
 
-        this.currentQuarterNote = 0;
         this.nextNoteTime = this.audioContext.currentTime + 0.05;
 
         this.intervalID = setInterval(() => this.scheduler(), this.lookahead);
@@ -69,6 +68,8 @@ class Metronome {
         this.isRunning = false;
 
         clearInterval(this.intervalID);
+
+        this.currentQuarterNote = 0;
     }
 
     startStop() {

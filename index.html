@@ -1,35 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simple Metronome</title>
-    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <div class="title">Simple Metronome</div>
-    <button id="play-button" class="">
-        <div id="play-pause-icon" class="play"></div>
-    </button>
-
-    <div class="tempo-controls">
-        <button class="tempo-change" data-change="-5">-5</button>
-        <button class="tempo-change" data-change="-1">-</button>
-
-        <div class="tempo-container">
-            <div id="tempo">120</div>
-            <div class="bpm">bpm</div>
-        </div>
-
-        <button class="tempo-change" data-change="+1">+</button>
-        <button class="tempo-change" data-change="+5">+5</button>
+    <h1>Simple Metronome</h1>
+    <p>Limitations: 4/4 only</p>
+    <h2>Run this in the browser console:</h2>
+    <!-- HTML generated using hilite.me -->
+    <div
+        style="background: #202020; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;">
+<pre style="margin: 0; line-height: 125%"><span style="color: #6ab825; font-weight: bold">const</span> <span style="color: #d0d0d0">metronome</span> <span style="color: #d0d0d0">=</span> <span style="color: #6ab825; font-weight: bold">new</span> <span style="color: #d0d0d0">Metronome();</span>
+<span style="color: #d0d0d0">metronome.tempo</span> <span style="color: #d0d0d0">=</span> <span style="color: #3677a9">200</span><span style="color: #d0d0d0">;</span>
+<span style="color: #d0d0d0">metronome.numberOfClicksToPlay</span> <span style="color: #d0d0d0">=</span> <span style="color: #3677a9">5</span><span style="color: #d0d0d0">;</span>
+<span style="color: #d0d0d0">metronome.startStop();</span>
+</pre>
     </div>
 
-    <div class="created-by">
-        Created by <a href="https://grantjam.es" target="_blank">Grant James</a>
+
+    <p>Then:</p>
+
+    <!-- HTML generated using hilite.me -->
+    <div
+        style="background: #202020; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;">
+        <pre style="margin: 0; line-height: 125%"><span style="color: #d0d0d0">metronome.startStop();</span></pre>
     </div>
+
+    <p>Etc.</p>
+
+    <p>Created by <a href="https://grantjam.es" target="_blank">Grant James</a></p>
 
     <script src="metronome.js"></script>
-    <script src="app.js"></script>
 </body>
+
 </html>
